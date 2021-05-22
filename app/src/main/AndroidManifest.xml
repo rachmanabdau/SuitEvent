@@ -3,6 +3,7 @@
     package="com.example.suitevent">
 
     <application
+        android:name=".SuitEventApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
