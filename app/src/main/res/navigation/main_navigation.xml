@@ -22,5 +22,13 @@
         <argument
             android:name="username"
             app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.example.suitevent.event.EventFragment"
+        android:label="Events"
+        tools:layout="@layout/fragment_event" />
 </navigation>
