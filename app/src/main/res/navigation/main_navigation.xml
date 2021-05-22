@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/landingFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/landingFragment"
+        android:id="@+id/loginFragment"
         android:name="com.example.suitevent.login.LoginFragment"
         android:label=""
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_landingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.suitevent.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 </navigation>

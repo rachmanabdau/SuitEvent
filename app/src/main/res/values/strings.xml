@@ -3,4 +3,8 @@
     <string name="next">Next</string>
     <string name="name_text_hint">Type name here</string>
     <string name="error_login">Please fill in your name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_event">Choose Event</string>
+    <string name="choose_guest">Choose Guest</string>
 </resources>

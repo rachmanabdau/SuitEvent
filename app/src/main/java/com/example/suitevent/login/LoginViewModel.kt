@@ -8,7 +8,7 @@ import com.example.suitevent.util.Event
 
 class LoginViewModel : ViewModel() {
 
-    private val _snackBarMessage = MutableLiveData<Event<Int>>(Event(0))
+    private val _snackBarMessage = MutableLiveData<Event<Int>>()
     val snackBarMessage: LiveData<Event<Int>> = _snackBarMessage
 
     fun login(username: String) {

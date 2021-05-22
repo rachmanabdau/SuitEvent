@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.suitevent.databinding.FragmentLoginBinding
 import com.example.suitevent.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,19 +31,29 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    fun login() {
-        val username = binding.usernameText.text.toString()
-        viewmodel.login(username)
+    private fun login() {
+        viewmodel.login(getUsername())
     }
 
-    fun observeLoginResult() {
+    private fun observeLoginResult() {
         viewmodel.snackBarMessage.observe(viewLifecycleOwner, EventObserver { result ->
             if (result != 0) {
                 binding.usernameInput.error = getString(result)
             } else {
                 binding.usernameInput.error = null
+                navigateToHome()
             }
         })
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(
+            LoginFragmentDirections.actionLandingFragmentToHomeFragment(getUsername())
+        )
+    }
+
+    private fun getUsername(): String {
+        return binding.usernameText.text.toString()
     }
 
 }
