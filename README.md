@@ -17,7 +17,7 @@ My Movie DB Using android Jetpack, include :
 * [Coil](https://github.com/coil-kt/coil) - Load Image from API
 
 ## Navigation Graph
-![Navigation Graph](/img/main_navigation.png)
+![Navigation Graph](/image/main_navigation.png)
 
 
 ## APK Demo
@@ -25,4 +25,4 @@ My Movie DB Using android Jetpack, include :
 
 Or Scan Here
 
-![APK here.](/img/suitevent_barcode.png)
+![APK here.](/image/suitevent_barcode.png)
