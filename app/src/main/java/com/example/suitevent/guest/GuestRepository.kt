@@ -1,28 +1,20 @@
 package com.example.suitevent.guest
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.suitevent.data.remote.NetworkService
 import com.example.suitevent.model.GuestResponse
-import com.example.suitevent.model.Result
-import com.squareup.moshi.Moshi
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GuestRepository @Inject constructor(
-    private val networkService: NetworkService,
-    private val moshi: Moshi
+    private val networkService: NetworkService
 ) : IGuestRepository {
 
-    override suspend fun getGuest(page: Int): Result<GuestResponse?> {
-        return try {
-            val result = networkService.getGuestsList(page).await()
-
-            if (result.isSuccessful && result.body() != null) {
-                Result.Success(result.body())
-            } else {
-                val errorMessage = Exception("Unknown error occured")
-                Result.Error(Exception(errorMessage))
-            }
-        } catch (e: Exception) {
-            Result.Error(Exception(e.message))
-        }
+    override suspend fun getGuest(): Flow<PagingData<GuestResponse.Result>> {
+        return Pager(PagingConfig(pageSize = 6, prefetchDistance = 1, enablePlaceholders = false)) {
+            GuestDataSource(networkService)
+        }.flow
     }
 }

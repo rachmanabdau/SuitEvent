@@ -2,20 +2,20 @@ package com.example.suitevent.guest
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.suitevent.data.remote.NetworkService
 import com.example.suitevent.model.GuestResponse
-import com.example.suitevent.model.Result
 
 class GuestDataSource(
-    private val repo: IGuestRepository,
+    private val networkService: NetworkService,
 ) : PagingSource<Int, GuestResponse.Result>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GuestResponse.Result> {
         val nextPageNumber = params.key ?: 1
         return try {
-            val guestResponse: Result<GuestResponse?> = repo.getGuest(nextPageNumber)
+            val guestResponse = networkService.getGuestsList(nextPageNumber).await()
 
-            if (guestResponse is Result.Success) {
-                val guestList = guestResponse.data?.data
+            if (guestResponse.isSuccessful) {
+                val guestList = guestResponse.body()?.data
                 if (guestList != null && guestList.isNotEmpty()) {
                     LoadResult.Page(
                         data = guestList,
@@ -31,7 +31,7 @@ class GuestDataSource(
                     )
                 }
             } else {
-                LoadResult.Error(Exception(getErrorMessage(guestResponse)))
+                LoadResult.Error(Exception("Something went wrong."))
             }
         } catch (e: Exception) {
             LoadResult.Error(e)
@@ -42,14 +42,6 @@ class GuestDataSource(
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-        }
-    }
-
-    private fun getErrorMessage(result: Result<*>): String {
-        return if (result is Result.Error) {
-            result.exception.localizedMessage ?: "Unknown exception occured."
-        } else {
-            "Unknown exception occured."
         }
     }
 }
