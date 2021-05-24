@@ -4,13 +4,15 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.suitevent.data.remote.NetworkService
 import com.example.suitevent.model.GuestResponse
+import timber.log.Timber
 
 class GuestDataSource(
-    private val networkService: NetworkService,
+    private val networkService: NetworkService
 ) : PagingSource<Int, GuestResponse.Result>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GuestResponse.Result> {
         val nextPageNumber = params.key ?: 1
+        Timber.d(nextPageNumber.toString())
         return try {
             val guestResponse = networkService.getGuestsList(nextPageNumber).await()
 

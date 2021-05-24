@@ -133,4 +133,12 @@ dependencies {
 
     // Circular Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Room Presistence Library
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$version_room"
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$version_room"
 }

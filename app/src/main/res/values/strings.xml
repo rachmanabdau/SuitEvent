@@ -13,8 +13,8 @@
     <string name="palindrome_blank">Please fill in the palindrome</string>
     <string name="is_palindrome">isPalindrome</string>
     <string name="not_palindrome">not palindrome</string>
-    <string name="ok">Ok</string>
     <string name="welcome">Welcome</string>
     <string name="this_is_app_for_suitmedia_mobile_developer_test">This is app for suitmedia mobile developer test</string>
     <string name="copyright">Copyright © 2020 Suitmedia. All rights reserved.</string>
+    <string name="guest_list_is_empty">Guest list is empty.</string>
 </resources>

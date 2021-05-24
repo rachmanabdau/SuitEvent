@@ -9,15 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import com.example.mymoviddb.adapters.GuestAdapter
 import com.example.suitevent.databinding.GuestFragmentBinding
 import com.example.suitevent.home.HomeFragment
 import com.example.suitevent.model.GuestResponse
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class GuestFragment : Fragment() {
 
@@ -40,22 +43,29 @@ class GuestFragment : Fragment() {
         binding.guestRv.adapter = adapter.also { guestAdapter ->
             lifecycleScope.launch {
                 guestAdapter.loadStateFlow.collectLatest { loadState ->
+                    binding.guestRefresh.isRefreshing = loadState.refresh is LoadState.Loading
                     if (loadState.refresh is LoadState.Error) {
-                        binding.errorLayout.errorMessage.text =
+                        val errorMessage =
                             (loadState.refresh as LoadState.Error).error.localizedMessage
+                                ?: "Something went wrong"
+                        Snackbar.make(requireView(), errorMessage, Snackbar.LENGTH_LONG).show()
                     }
-                    binding.errorLayout.root.isVisible = loadState.refresh is LoadState.Error
-                    binding.errorLayout.tryAgainButton.setOnClickListener { guestAdapter.retry() }
                 }
             }
         }
         populateDate(adapter)
+
+        binding.guestRefresh.setOnRefreshListener {
+            binding.guestRefresh.isRefreshing = true
+            adapter.refresh()
+        }
     }
 
     private fun populateDate(adapter: GuestAdapter) {
         viewModel.getGuestList()
         viewModel.guestResult.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
+            binding.emptyPlaceHolder.isVisible = adapter.itemCount == 0
         }
     }
 

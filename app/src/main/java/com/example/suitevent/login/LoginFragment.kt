@@ -78,7 +78,7 @@ class LoginFragment : Fragment() {
             .setTitle(getString(R.string.palindrome_result))
 
         builder.apply {
-            setPositiveButton(getString(R.string.ok)) { dialog, id ->
+            setPositiveButton(getString(android.R.string.ok)) { dialog, id ->
                 dialog.dismiss()
             }
         }
