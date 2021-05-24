@@ -1,10 +1,20 @@
 <resources>
     <string name="app_name">Suit Event</string>
     <string name="next">Next</string>
-    <string name="name_text_hint">Type name here</string>
+    <string name="name_text_hint">Type name here..</string>
     <string name="error_login">Please fill in your name</string>
     <string name="choose_event">Choose Event</string>
     <string name="choose_guest">Choose Guest</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="try_again">Try Again</string>
+    <string name="palindrome_hint">Type text palindrome</string>
+    <string name="check">Check</string>
+    <string name="palindrome_result">Palindrome Result</string>
+    <string name="palindrome_blank">Please fill in the palindrome</string>
+    <string name="is_palindrome">isPalindrome</string>
+    <string name="not_palindrome">not palindrome</string>
+    <string name="ok">Ok</string>
+    <string name="welcome">Welcome</string>
+    <string name="this_is_app_for_suitmedia_mobile_developer_test">This is app for suitmedia mobile developer test</string>
+    <string name="copyright">Copyright © 2020 Suitmedia. All rights reserved.</string>
 </resources>
