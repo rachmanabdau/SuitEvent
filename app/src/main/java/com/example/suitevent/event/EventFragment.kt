@@ -1,11 +1,10 @@
 package com.example.suitevent.event
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.suitevent.R
 import com.example.suitevent.adapter.EventAdapter
 import com.example.suitevent.databinding.FragmentEventBinding
 import com.example.suitevent.home.HomeFragment
@@ -22,9 +21,10 @@ class EventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventBinding.inflate(inflater, container, false)
-        val adapter = EventAdapter { eventItem -> returnEventToHome(eventItem) }
-        adapter.submitList(dummyEventList)
+        val adapter = EventAdapter(dummyEventList) { eventItem -> returnEventToHome(eventItem) }
+        //adapter.submitList(dummyEventList)
         binding.eventRv.adapter = adapter
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -35,5 +35,21 @@ class EventFragment : Fragment() {
             data.name
         )
         findNavController().popBackStack()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.event_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.mapFragment -> findNavController().navigate(
+                EventFragmentDirections.actionEventFragmentToMapFragment(
+                    dummyEventList.toTypedArray()
+                )
+            )
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
