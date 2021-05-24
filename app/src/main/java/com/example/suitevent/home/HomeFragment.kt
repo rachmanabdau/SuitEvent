@@ -1,10 +1,14 @@
 package com.example.suitevent.home
 
+import android.R
+import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setGreetings(username: String) {
-        val greetText = "Hello, "
+        val greetText = "Hello,\n"
         val greetUser = greetText + username
         val spannableGreet = SpannableStringBuilder(greetUser)
         spannableGreet.setSpan(
@@ -53,7 +57,25 @@ class HomeFragment : Fragment() {
             greetUser.length,
             Spannable.SPAN_INCLUSIVE_EXCLUSIVE
         )
+        spannableGreet.setSpan(
+            ForegroundColorSpan(getPrimayColor()),
+            greetText.length,
+            greetUser.length,
+            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+        )
         binding.greetings.text = spannableGreet
+    }
+
+    private fun getPrimayColor(): Int {
+        val typedValue = TypedValue()
+        val a: TypedArray =
+            requireContext().obtainStyledAttributes(
+                typedValue.data,
+                intArrayOf(R.attr.colorPrimary)
+            )
+        val color = a.getColor(0, 0)
+        a.recycle()
+        return color
     }
 
     private fun observeEventResult() {
