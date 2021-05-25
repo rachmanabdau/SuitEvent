@@ -19,7 +19,7 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:padding="8dp"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="9"
                 tools:listitem="@layout/guest_item" />

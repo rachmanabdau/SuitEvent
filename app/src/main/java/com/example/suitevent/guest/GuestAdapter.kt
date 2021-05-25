@@ -57,7 +57,9 @@ class GuestViewHolder(private val binding: GuestItemBinding) :
 
     fun bind(data: GuestResponse.Result?, actionDetail: (GuestResponse.Result) -> Unit) {
         data?.apply {
+            val context = binding.root.context
             binding.guestData = data
+            binding.isPrime = context.getString(determinId(data.id))
             binding.fullName = data.firstName + " " + data.lastName
             binding.guestAvatar.load(data.avatar) {
                 placeholder(R.drawable.loading_img)
@@ -66,6 +68,28 @@ class GuestViewHolder(private val binding: GuestItemBinding) :
             }
             binding.guestConstraint.setOnClickListener {
                 actionDetail(data)
+            }
+        }
+    }
+
+    private fun determinId(id: Int): Int {
+        return when {
+            id == 1 || id == 2 || id == 3 -> R.string.is_prime_number
+
+            else -> {
+                var flag = false
+                for (i in 2..id / 2) {
+                    // condition for nonprime number
+                    if (id % i == 0) {
+                        flag = true
+                        break
+                    }
+                }
+
+                if (!flag)
+                    R.string.is_prime_number
+                else
+                    R.string.is_not_prime_number
             }
         }
     }

@@ -19,4 +19,6 @@
     <string name="guest_list_is_empty">Guest list is empty.</string>
     <string name="map">Map</string>
     <string name="event_list">Event List</string>
+    <string name="is_prime_number">id is prime number</string>
+    <string name="is_not_prime_number">id is not a prime number.</string>
 </resources>
